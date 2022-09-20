@@ -1,36 +1,25 @@
 const express = require('express'); 
 const fs = require('fs'); 
+const apiroutes = require('./routes/apiroutes.js'); 
+const path = require('path');
 
 const app = express(); 
+
 
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true }));
 
+app.use('/api', apiroutes); 
 //this line will allow me to all of the files in the public folder 
 app.use(express.static('public')); 
 
-//building a request handler for the notes 
-app.get('/api/notes', (req, res) => {
-    const notes = require('./Develop/db/db.json'); 
-//sending back the notes 
-    res.status(200).json(notes); 
-})
+//GET route for homepage 
+app.get('/', (req, res) => 
+res.sendFile(path.join(__dirname, '/public/index.html')));
 
-app.post('/api/notes', (req, res) => {
-    const notes = ('./Develop/db/db.json'); 
+//GET route for Notes page
+app.get('/notes', (req, res) => 
+res.sendFile(path.join(__dirname, 'notes.html')));
 
-    const { noteTitle, noteText } = req.body; 
-    console.log(noteText, noteTitle); 
 
-   fs.writeFile('./Develop/db/db.json', JSON.stringify(notes), (err) => {
-    if(err) {
-        res.status(500).end(); 
-    }else {
-        res.status(200).end(); 
-    }
-   })
-
-   res.end(); 
-})
-
-app.listen(3001, () => console.log('App running on http://localhost:3001/'))
+app.listen(3002, () => console.log('App running on http://localhost:3002/'))
