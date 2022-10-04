@@ -10,14 +10,14 @@ router.get('/notes', (req, res) => {
 
 //sending back the notes 
 router.post('/notes', (req, res) => {
-
+    const notedata = notes || []; 
     fs.readFile(path.join(__dirname, '../db/db.json'), (err, data) => {
         if (err) {
             res.status(500).end();
         }
-        notes.push(req.body);
+        notedata.push(req.body);
     
-        fs.writeFile(path.join(__dirname, '../db/db.json'), JSON.stringify(notes), (err) => {
+        fs.writeFile(path.join(__dirname, '../db/db.json'), JSON.stringify(notedata), (err) => {
             if (err) {
                 res.status(500).end();
             } else {
@@ -25,7 +25,7 @@ router.post('/notes', (req, res) => {
             }
         });
     }); 
-})
+});
 
 // router.delete('/notes/:id', (req, res)=> {
 //     res.send(req.params); 
@@ -51,4 +51,7 @@ router.post('/notes', (req, res) => {
 //     }); 
 
 // })
+
+
+
 module.exports = router; 

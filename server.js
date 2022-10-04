@@ -19,9 +19,9 @@ app.use("/", htmlRoutes);
 //     res.status(200).json(`${req.method} request recieved `); 
 // })
 
-//app.listen(3002, () => console.log('App running on http://localhost:3002/'))
+app.listen(3002, () => console.log('App running on http://localhost:3002/'))
 
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-  });
+// app.listen(PORT, () => {
+//     console.log(`Server running on port ${PORT}`);
+//   });
   
